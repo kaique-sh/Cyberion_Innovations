@@ -2,6 +2,8 @@ package com.example.cyberioninnovations;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,34 +21,68 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        initViews();
+        setupListeners();
+    }
+
+    private void initViews() {
         etLogin = findViewById(R.id.etLogin);
         etSenha = findViewById(R.id.etSenha);
         btnEntrar = findViewById(R.id.btnEntrar);
         btnCriarConta = findViewById(R.id.btnCriarConta);
+    }
 
+    private void setupListeners() {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String login = etLogin.getText().toString().trim();
-                String senha = etSenha.getText().toString().trim();
-
-                if (login.isEmpty() || senha.isEmpty()) {
-                    Toast.makeText(Login.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Aqui vai a lógica de autenticação (API, banco etc.)
-                    Toast.makeText(Login.this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show();
-                    // startActivity(new Intent(LoginActivity.this, TelaPrincipalActivity.class));
-                    // finish();
-                }
+                handleLogin();
             }
         });
 
         btnCriarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this, Cadastro.class);
-                startActivity(intent);
+                startActivity(new Intent(Login.this, Cadastro.class));
             }
         });
+    }
+
+    private void handleLogin() {
+        String login = etLogin.getText().toString().trim();
+        String senha = etSenha.getText().toString();
+
+        if (TextUtils.isEmpty(login) || TextUtils.isEmpty(senha)) {
+            showToast("Preencha todos os campos");
+            return;
+        }
+
+        if (!isValidEmail(login)) {
+            showToast("Digite um e-mail válido");
+            return;
+        }
+
+        // TODO: Substituir isso por chamada segura de autenticação, como uma API com HTTPS
+        if (fakeAuthenticate(login, senha)) {
+            showToast("Login bem-sucedido!");
+            // startActivity(new Intent(Login.this, TelaPrincipalActivity.class));
+            // finish();
+        } else {
+            showToast("Usuário ou senha inválidos");
+        }
+    }
+
+    private boolean isValidEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // Simulação de login (apenas para fins de exemplo)
+    private boolean fakeAuthenticate(String login, String senha) {
+        // Nunca armazene senhas no código! Apenas um exemplo.
+        return login.equals("admin@example.com") && senha.equals("123456");
     }
 }

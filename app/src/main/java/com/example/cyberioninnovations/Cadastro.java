@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Cadastro extends AppCompatActivity {
 
     private EditText etNome, etEmail, etSenha, etConfirmarSenha;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class Cadastro extends AppCompatActivity {
         etConfirmarSenha = findViewById(R.id.etConfirmarSenha);
         Button btnCadastrar = findViewById(R.id.btnCadastrar);
 
+        dbHelper = new DBHelper(this); // Inicializa o DBHelper
+
         btnCadastrar.setOnClickListener(view -> {
             String nome = etNome.getText().toString().trim();
             String email = etEmail.getText().toString().trim();
@@ -33,9 +36,13 @@ public class Cadastro extends AppCompatActivity {
             } else if (!senha.equals(confirmarSenha)) {
                 Toast.makeText(Cadastro.this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
             } else {
-                // Aqui você pode salvar os dados (local ou remoto)
-                Toast.makeText(Cadastro.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
-                finish(); // Retorna para tela de login
+                boolean sucesso = dbHelper.inserirUsuario(nome, email, senha);
+                if (sucesso) {
+                    Toast.makeText(Cadastro.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(Cadastro.this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
