@@ -2,6 +2,7 @@ package com.example.cyberioninnovations;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -39,8 +40,27 @@ public class DBHelper extends SQLiteOpenHelper {
     // Método para inserir usuário
     public boolean inserirUsuario(String nome, String email, String senha) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
 
+        // Verifica se o e-mail já está cadastrado
+        Cursor cursor = db.query(
+                TABLE_USUARIOS,
+                null,
+                COLUMN_EMAIL + " = ?",
+                new String[]{email},
+                null,
+                null,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            db.close();
+            return false; // E-mail já existe
+        }
+
+        cursor.close();
+
+        ContentValues values = new ContentValues();
         values.put(COLUMN_NOME, nome);
         values.put(COLUMN_EMAIL, email);
         values.put(COLUMN_SENHA, senha);
@@ -48,5 +68,16 @@ public class DBHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_USUARIOS, null, values);
         db.close();
         return result != -1;
+    }
+
+    // Método para verificar se um usuário existe com email e senha corretos
+    public boolean verificarLogin(String email, String senha) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_USUARIOS +
+                " WHERE " + COLUMN_EMAIL + "=? AND " + COLUMN_SENHA + "=?";
+        String[] args = {email, senha};
+
+        return db.rawQuery(query, args).moveToFirst(); // Se encontrar, retorna true
     }
 }

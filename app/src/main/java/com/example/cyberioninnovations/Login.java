@@ -15,6 +15,7 @@ public class Login extends AppCompatActivity {
 
     private EditText etLogin, etSenha;
     private Button btnEntrar, btnCriarConta;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class Login extends AppCompatActivity {
 
         initViews();
         setupListeners();
+
+        dbHelper = new DBHelper(this); // Inicializa o banco
     }
 
     private void initViews() {
@@ -62,11 +65,14 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        // TODO: Substituir isso por chamada segura de autenticação, como uma API com HTTPS
-        if (fakeAuthenticate(login, senha)) {
+        // Verifica login no banco de dados
+        boolean autenticado = dbHelper.verificarLogin(login, senha);
+
+        if (autenticado) {
             showToast("Login bem-sucedido!");
-            // startActivity(new Intent(Login.this, TelaPrincipalActivity.class));
-            // finish();
+            startActivity(new Intent(Login.this, MainActivity.class));
+            finish(); // Fecha a tela de login
+
         } else {
             showToast("Usuário ou senha inválidos");
         }
@@ -78,11 +84,5 @@ public class Login extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    // Simulação de login (apenas para fins de exemplo)
-    private boolean fakeAuthenticate(String login, String senha) {
-        // Nunca armazene senhas no código! Apenas um exemplo.
-        return login.equals("admin@example.com") && senha.equals("123456");
     }
 }
