@@ -1,0 +1,28 @@
+<resources>
+    <!-- Login -->
+    <string name="login_titulo">Login</string>
+    <string name="login_descricao">Digite os seus dados de acesso no campo abaixo.</string>
+    <string name="login_hint">Login</string>
+    <string name="senha_hint">Senha</string>
+    <string name="esqueceu_senha">Esqueceu a senha?</string>
+    <string name="botao_entrar">ENTRAR</string>
+    <string name="texto_sem_cadastro">Não tem uma Cadastro?</string>
+    <string name="botao_criar_usuario">Criar usuário</string>
+    <string name="cadastro_titulo">Cadastro</string>
+    <string name="cadastro_descricao">Preencha os campos abaixo para criar sua conta.</string>
+    <string name="nome_completo_label">Nome completo</string>
+    <string name="nome_completo_hint">Nome completo</string>
+    <string name="email_label">Email</string>
+    <string name="email_hint">Email</string>
+    <string name="senha_label">Senha</string>
+    <string name="confirmar_senha_label">Confirmar senha</string>
+    <string name="confirmar_senha_hint">Confirmar senha</string>
+    <string name="botao_cadastrar">Cadastrar</string>
+    <string name="app_name">SeuApp</string>
+    <string name="login">Login</string>
+    <string name="digite_os_seus_dados_de_acesso_no_campo_abaixo">Digite os seus dados de acesso no campo abaixo.</string>
+    <string name="esqueceu_a_senha">Esqueceu a senha?</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="n_o_tem_uma_cadastro">Não tem uma Cadastro?</string>
+    <string name="criar_usu_rio">Criar usuário</string>
+</resources>
