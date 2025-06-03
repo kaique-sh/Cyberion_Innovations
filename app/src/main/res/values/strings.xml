@@ -25,4 +25,5 @@
     <string name="entrar">ENTRAR</string>
     <string name="n_o_tem_uma_cadastro">Não tem uma Cadastro?</string>
     <string name="criar_usu_rio">Criar usuário</string>
+    <string name="etapa_concluida">Etapa concluida</string>
 </resources>

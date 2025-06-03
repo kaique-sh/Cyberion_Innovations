@@ -12,28 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CyberionInnovations"
         tools:targetApi="31">
-
-        <!-- Tela de Login como principal -->
+        <activity
+            android:name=".Activity_etapa_concluida"
+            android:exported="false" />
+        <activity
+            android:name=".SolicitarSuporteActivity"
+            android:exported="false" /> <!-- Tela de Login como principal -->
         <activity
             android:name=".Login"
             android:exported="true"
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Tela de Cadastro -->
+        </activity> <!-- Tela de Cadastro -->
         <activity
             android:name=".Cadastro"
-            android:exported="false" />
-
-        <!-- Tela principal do app após login -->
+            android:exported="false" /> <!-- Tela principal do app após login -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

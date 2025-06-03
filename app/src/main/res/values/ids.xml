@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ivCheck" type="id" />
+    <item name="tvTitulo" type="id" />
+    <item name="tvInstrucao" type="id" />
+    <item name="tvMensagem" type="id" />
+    <item name="btnVoltar" type="id" />
+    <item name="etDescricao" type="id" />
+    <item name="spinnerChamado" type="id" />
+    <item name="etAssunto" type="id" />
+    <item name="btnEnviar" type="id" />
+    <item name="onda" type="id" />
+    <item name="edtAssunto" type="id" />
+    <item name="edtDescricao" type="id" />
+</resources>
