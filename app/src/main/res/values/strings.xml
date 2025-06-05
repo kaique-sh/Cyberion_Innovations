@@ -26,4 +26,8 @@
     <string name="n_o_tem_uma_cadastro">Não tem uma Cadastro?</string>
     <string name="criar_usu_rio">Criar usuário</string>
     <string name="etapa_concluida">Etapa concluida</string>
+    <string name="assunto">Assunto</string>
+    <string name="categoria">Categoria</string>
+    <string name="descri_o">Descrição</string>
+    <string name="solicitar_suporte">Solicitar Suporte</string>
 </resources>

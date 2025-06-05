@@ -12,4 +12,9 @@
     <item name="onda" type="id" />
     <item name="edtAssunto" type="id" />
     <item name="edtDescricao" type="id" />
+    <item name="txtAssunto" type="id" />
+    <item name="txtCategoria" type="id" />
+    <item name="txtDescricao" type="id" />
+    <item name="recyclerView" type="id" />
+    <item name="main" type="id" />
 </resources>
