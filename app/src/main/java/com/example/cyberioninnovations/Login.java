@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+// Import corrigido!
+
 
 public class Login extends AppCompatActivity {
 
@@ -24,8 +26,7 @@ public class Login extends AppCompatActivity {
 
         initViews();
         setupListeners();
-
-        dbHelper = new DBHelper(this); // Inicializa o banco
+        dbHelper = new DBHelper(this);
     }
 
     private void initViews() {
@@ -36,18 +37,10 @@ public class Login extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        btnEntrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleLogin();
-            }
-        });
-
-        btnCriarConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, Cadastro.class));
-            }
+        btnEntrar.setOnClickListener(view -> handleLogin());
+        btnCriarConta.setOnClickListener(view -> {
+            Intent intent = new Intent(Login.this, Cadastro.class);
+            startActivity(intent);
         });
     }
 
@@ -65,14 +58,12 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        // Verifica login no banco de dados
         boolean autenticado = dbHelper.verificarLogin(login, senha);
 
         if (autenticado) {
             showToast("Login bem-sucedido!");
-            startActivity(new Intent(Login.this, MainActivity.class));
-            finish(); // Fecha a tela de login
-
+            startActivity(new Intent(Login.this, SolicitarSuporteActivity.class));
+            finish();
         } else {
             showToast("Usuário ou senha inválidos");
         }
@@ -83,6 +74,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

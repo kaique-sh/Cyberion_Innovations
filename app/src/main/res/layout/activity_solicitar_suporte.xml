@@ -28,7 +28,7 @@
                 android:id="@+id/tvTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Solicitar Suporte"
+                android:text="@string/solicitar_suporte"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="#00FF84"

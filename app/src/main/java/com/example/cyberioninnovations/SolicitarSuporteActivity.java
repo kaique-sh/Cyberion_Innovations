@@ -1,18 +1,14 @@
-package com.example.solicitarsuporte;
+package com.example.cyberioninnovations;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.cyberioninnovations.EtapaConcluidaActivity;
-import com.example.cyberioninnovations.R;
 
 public class SolicitarSuporteActivity extends AppCompatActivity {
 
@@ -31,19 +27,19 @@ public class SolicitarSuporteActivity extends AppCompatActivity {
         spinnerChamado = findViewById(R.id.spinnerChamado);
         btnEnviar = findViewById(R.id.btnEnviar);
 
-        btnEnviar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnEnviar.setOnClickListener(v -> {
+            String assunto = edtAssunto.getText().toString().trim();
+            String descricao = edtDescricao.getText().toString().trim();
+            String categoria = spinnerChamado.getSelectedItem().toString();
 
-                String assunto = edtAssunto.getText().toString();
-                String descricao = edtDescricao.getText().toString();
+            if (assunto.isEmpty() || descricao.isEmpty()) {
+                Toast.makeText(SolicitarSuporteActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+            } else {
+                Chamado novoChamado = new Chamado(assunto, categoria, descricao);
+                AcompanhamentoActivity.getChamados().add(novoChamado);
 
-                if (assunto.isEmpty() || descricao.isEmpty()) {
-                    Toast.makeText(SolicitarSuporteActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(SolicitarSuporteActivity.this, EtapaConcluidaActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(SolicitarSuporteActivity.this, Activity_etapa_concluida.class);
+                startActivity(intent);
             }
         });
     }
