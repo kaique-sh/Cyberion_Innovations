@@ -1,50 +1,34 @@
 package com.example.cyberioninnovations;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ChamadoAdapter extends RecyclerView.Adapter<ChamadoAdapter.ViewHolder> {
-
-    private final List<Chamado> chamados;
-
-    public ChamadoAdapter(List<Chamado> chamados) {
-        this.chamados = chamados;
+public class ChamadoAdapter extends ArrayAdapter<Chamado> {
+    public ChamadoAdapter(Context context, List<Chamado> chamados) {
+        super(context, 0, chamados);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtAssunto, txtCategoria, txtDescricao;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Chamado chamado = getItem(position);
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            txtAssunto = itemView.findViewById(R.id.txtAssunto);
-            txtCategoria = itemView.findViewById(R.id.txtCategoria);
-            txtDescricao = itemView.findViewById(R.id.txtDescricao);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_chamado, parent, false);
         }
-    }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_chamado, parent, false);
-        return new ViewHolder(itemView);
-    }
+        TextView textTitulo = convertView.findViewById(R.id.textTitulo);
+        TextView textDescricao = convertView.findViewById(R.id.textDescricao);
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Chamado chamado = chamados.get(position);
-        holder.txtAssunto.setText(chamado.getAssunto());
-        holder.txtCategoria.setText(chamado.getCategoria());
-        holder.txtDescricao.setText(chamado.getDescricao());
-    }
+        textTitulo.setText(chamado.getAssunto() + " (" + chamado.getCategoria() + ")");
+        textDescricao.setText(chamado.getDescricao());
 
-    @Override
-    public int getItemCount() {
-        return chamados.size();
+        return convertView;
     }
 }

@@ -1,8 +1,8 @@
 package com.example.cyberioninnovations;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,18 +14,36 @@ public class SolicitarSuporteActivity extends AppCompatActivity {
 
     EditText edtAssunto, edtDescricao;
     Spinner spinnerChamado;
-    Button btnEnviar;
+    Button btnEnviar, btnVoltar;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitar_suporte);
 
-        edtAssunto = findViewById(R.id.edtAssunto);
-        edtDescricao = findViewById(R.id.edtDescricao);
+        // Título via ActionBar (opcional)
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(getString(R.string.abrir_chamado_title));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);  // desabilita seta ActionBar, pois temos botão manual
+        }
+
+        edtAssunto = findViewById(R.id.etAssunto);
+        edtDescricao = findViewById(R.id.etDescricao);
         spinnerChamado = findViewById(R.id.spinnerChamado);
         btnEnviar = findViewById(R.id.btnEnviar);
+        btnVoltar = findViewById(R.id.btnVoltar);
+
+        // Adapter para o spinner com layout personalizado (opcional)
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.categorias_chamado,
+                R.layout.spinner_item // seu layout customizado, se tiver
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerChamado.setAdapter(adapter);
+
+        // Botão Voltar funcionando
+        btnVoltar.setOnClickListener(v -> finish());
 
         btnEnviar.setOnClickListener(v -> {
             String assunto = edtAssunto.getText().toString().trim();
@@ -33,13 +51,16 @@ public class SolicitarSuporteActivity extends AppCompatActivity {
             String categoria = spinnerChamado.getSelectedItem().toString();
 
             if (assunto.isEmpty() || descricao.isEmpty()) {
-                Toast.makeText(SolicitarSuporteActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.preencha_todos_campos), Toast.LENGTH_SHORT).show();
             } else {
-                Chamado novoChamado = new Chamado(assunto, categoria, descricao);
-                AcompanhamentoActivity.getChamados().add(novoChamado);
+                Chamado chamado = new Chamado(assunto, categoria, descricao);
+                ChamadoRepository.chamados.add(chamado);
 
-                Intent intent = new Intent(SolicitarSuporteActivity.this, Activity_etapa_concluida.class);
+                Toast.makeText(this, getString(R.string.chamado_enviado_sucesso), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(SolicitarSuporteActivity.this, AcompanhamentoActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

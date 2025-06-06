@@ -1,45 +1,45 @@
 package com.example.cyberioninnovations;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ListView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Activity responsável por exibir a lista de chamados em andamento.
- */
 public class AcompanhamentoActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private ListView listChamados;
     private ChamadoAdapter adapter;
-    private static final List<Chamado> chamados = new ArrayList<>();
+    private ArrayList<Chamado> chamados;
 
-    public static List<Chamado> getChamados() {
-        return chamados;
-    }
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acompanhamento);
 
-        // Inicializa o RecyclerView
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listChamados = findViewById(R.id.listChamados);
+        Button btnVoltar = findViewById(R.id.btnVoltar); // Botão de voltar
 
-        // Simula chamados de exemplo (só adiciona se a lista estiver vazia)
-        if (chamados.isEmpty()) {
-            chamados.add(new Chamado("Erro ao fazer login", "Autenticação", "Usuário não consegue acessar o sistema com credenciais corretas."));
-            chamados.add(new Chamado("Tela inicial travando", "Interface", "Aplicativo congela ao carregar a tela principal."));
+        // Ação do botão
+        btnVoltar.setOnClickListener(v -> finish());
+
+        // Pega lista do repositório
+        chamados = ChamadoRepository.chamados;
+
+        adapter = new ChamadoAdapter(this, chamados);
+        listChamados.setAdapter(adapter);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Tickets em andamento");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
 
-        // Configura o adapter com a lista
-        adapter = new ChamadoAdapter(chamados);
-        recyclerView.setAdapter(adapter);
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

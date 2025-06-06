@@ -1,6 +1,8 @@
 package com.example.cyberioninnovations;
 
-public class Chamado {
+import java.io.Serializable;
+
+public class Chamado implements Serializable {
     private String assunto;
     private String categoria;
     private String descricao;

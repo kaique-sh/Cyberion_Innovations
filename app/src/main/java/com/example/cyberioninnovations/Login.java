@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity {
 
         if (autenticado) {
             showToast("Login bem-sucedido!");
-            startActivity(new Intent(Login.this, SolicitarSuporteActivity.class));
+            startActivity(new Intent(Login.this, MainActivity.class));
             finish();
         } else {
             showToast("Usuário ou senha inválidos");

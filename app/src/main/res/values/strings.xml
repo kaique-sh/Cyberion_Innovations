@@ -1,13 +1,16 @@
 <resources>
     <!-- Login -->
+    <string name="app_name">SeuApp</string>
+
     <string name="login_titulo">Login</string>
     <string name="login_descricao">Digite os seus dados de acesso no campo abaixo.</string>
     <string name="login_hint">Login</string>
     <string name="senha_hint">Senha</string>
     <string name="esqueceu_senha">Esqueceu a senha?</string>
     <string name="botao_entrar">ENTRAR</string>
-    <string name="texto_sem_cadastro">Não tem uma Cadastro?</string>
+    <string name="texto_sem_cadastro">Não tem um cadastro?</string>
     <string name="botao_criar_usuario">Criar usuário</string>
+
     <string name="cadastro_titulo">Cadastro</string>
     <string name="cadastro_descricao">Preencha os campos abaixo para criar sua conta.</string>
     <string name="nome_completo_label">Nome completo</string>
@@ -18,16 +21,25 @@
     <string name="confirmar_senha_label">Confirmar senha</string>
     <string name="confirmar_senha_hint">Confirmar senha</string>
     <string name="botao_cadastrar">Cadastrar</string>
-    <string name="app_name">SeuApp</string>
-    <string name="login">Login</string>
-    <string name="digite_os_seus_dados_de_acesso_no_campo_abaixo">Digite os seus dados de acesso no campo abaixo.</string>
-    <string name="esqueceu_a_senha">Esqueceu a senha?</string>
-    <string name="entrar">ENTRAR</string>
-    <string name="n_o_tem_uma_cadastro">Não tem uma Cadastro?</string>
-    <string name="criar_usu_rio">Criar usuário</string>
-    <string name="etapa_concluida">Etapa concluida</string>
+
+    <string name="etapa_concluida">Etapa concluída</string>
+
+    <!-- Solicitar Suporte -->
     <string name="assunto">Assunto</string>
     <string name="categoria">Categoria</string>
-    <string name="descri_o">Descrição</string>
+    <string name="descricao">Descrição</string>
     <string name="solicitar_suporte">Solicitar Suporte</string>
+    <string name="preencha_todos_campos">Preencha todos os campos!</string>
+
+    <!-- Spinner Categorias -->
+    <string-array name="categorias_chamado">
+        <item>Hardware</item>
+        <item>Software</item>
+        <item>Rede</item>
+        <item>Suporte Técnico</item>
+        <item>Outro</item>
+    </string-array>
+
+    <string name="abrir_chamado_title">Abrir Chamado</string>
+    <string name="chamado_enviado_sucesso">Chamado enviado com sucesso!</string>
 </resources>
